@@ -23,7 +23,7 @@ class UploadNotifierTest extends WP_UnitTestCase {
 	}
 
 	public function test_link_appears_in_message() {
-		$url = 'http://castlestreet.localhost/wp-content/uploads/2013/02/WNS-2013-02-03.pdf';
+		$url = 'http://example.com/wp-content/uploads/2013/02/WNS-2013-02-03.pdf';
 
 		$file_details = array( 'url' => $url );
 
@@ -39,7 +39,7 @@ class UploadNotifierTest extends WP_UnitTestCase {
 	{
 		global $wp_options;
 
-		$email_address = 'wordpress@castlestreet.org.uk';
+		$email_address = 'wordpress@example.com';
 		$this->set_option( 'from_email', $email_address );
 
 		$this->apply_upload_filters();
@@ -49,7 +49,7 @@ class UploadNotifierTest extends WP_UnitTestCase {
 
 	public function test_message_read_from_config()
 	{
-		$message = 'A new weekly notice sheet has been uploaded to the Castle Street Website';
+		$message = 'A new weekly notice sheet has been uploaded to the website';
 
 		$this->set_option( 'message', $message );
 		$this->apply_upload_filters();
@@ -62,7 +62,7 @@ class UploadNotifierTest extends WP_UnitTestCase {
 	{
 		$this->set_option( 'pattern', 'WNS-\d{4}-\d{2}-\d{2}\.pdf' );
 
-		$url = 'http://castlestreet.localhost/wp-content/uploads/2013/02/WNS-2013-02-03.pdf';
+		$url = 'http://example.com/wp-content/uploads/2013/02/WNS-2013-02-03.pdf';
 		$this->apply_upload_filters( array( 'url' => $url ) );
 
 		$this->check_email_was_sent();
@@ -72,7 +72,7 @@ class UploadNotifierTest extends WP_UnitTestCase {
 	{
 		$this->set_option( 'pattern', 'WNS-\d{4}-\d{2}-\d{2}\.pdf' );
 
-		$url = 'http://castlestreet.localhost/wp-content/uploads/2013/02/church_downhill.jpg';
+		$url = 'http://example.com/wp-content/uploads/2013/02/church_downhill.jpg';
 		$this->apply_upload_filters( array( 'url' => $url ) );
 
 		$this->check_no_email_was_sent();
