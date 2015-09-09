@@ -105,7 +105,7 @@ class UploadNotifier {
 		return mail(
 			$options['to_email'],
 			$options['subject'],
-			"{$options['message']} <$url>",
+			"{$options['message']}<$url>",
 			implode( "\r\n", $headers )
 		);
 	}
