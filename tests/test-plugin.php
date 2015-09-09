@@ -5,7 +5,7 @@ global $current_screen;
 $current_screen = WP_Screen::get( 'admin_init' );
 
 
-class UploadNotifyTest extends WP_UnitTestCase {
+class UploadNotifierTest extends WP_UnitTestCase {
 	public function test_is_admin() {
 		$this->assertTrue( is_admin() );
 	}

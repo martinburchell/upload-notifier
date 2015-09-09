@@ -11,7 +11,7 @@ function _manually_load_plugin() {
 
 	$_SERVER['PHP_SELF'] = '/wp-admin/options-media.php';
 	define( 'WP_ADMIN', true );
-	require dirname( __FILE__ ) . '/../upload-notify.php';
+	require dirname( __FILE__ ) . '/../upload-notifier.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
