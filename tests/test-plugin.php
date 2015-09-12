@@ -78,6 +78,20 @@ class UploadNotifierTest extends WP_UnitTestCase {
 		$this->check_no_email_was_sent();
 	}
 
+	public function test_filter_does_not_modify_file_details() {
+		$url = 'http://example.com/wp-content/uploads/2013/02/WNS-2013-02-03.pdf';
+
+		$file_details = array(
+			'url' => $url,
+			'file' => '/home/test/files/WNS-2013-02-03.pdf',
+			'type' => 'application/pdf',
+		);
+
+		$filtered_details = $this->apply_upload_filters( $file_details );
+
+		$this->assertThat( $filtered_details, $this->equalTo( $file_details ) );
+	}
+
 	private function set_option( $name, $value ) {
 		global $_UPLOAD_NOTIFIER_MOCK_OPTIONS;
 
@@ -98,7 +112,7 @@ class UploadNotifierTest extends WP_UnitTestCase {
 			$file_details
 		);
 
-		apply_filters(
+		return apply_filters(
 			'wp_handle_upload', $file_details, $event
 		);
 	}

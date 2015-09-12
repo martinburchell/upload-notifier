@@ -42,7 +42,7 @@ class UploadNotifier {
 		update_option( 'upload_notifier_general_settings', $options );
 	}
 
-	public static function add_settings_callback($section) {
+	public static function add_settings_callback() {
 		$options = get_option( 'upload_notifier_general_settings' );
 		?>
 		<table class="form-table">
@@ -80,10 +80,10 @@ class UploadNotifier {
 		<?php
 	}
 
-	public static function handle_upload( $fileDetails, $event )
+	public static function handle_upload( $file_details, $event )
 	{
 		if ( $event == 'upload' ) {
-			$url = $fileDetails['url'];
+			$url = $file_details['url'];
 
 			$options = get_option( 'upload_notifier_general_settings' );
 			$pattern = $options['pattern'];
@@ -94,6 +94,8 @@ class UploadNotifier {
 				self::send_email( $url );
 			}
 		}
+
+		return $file_details;
 	}
 
 	private static function send_email( $url ) {
