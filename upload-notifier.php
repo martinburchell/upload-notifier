@@ -53,7 +53,7 @@ class UploadNotifier {
 		</td>
 		</tr>
 		<tr>
-		<th>Email address of recipient</th>
+		<th>Email addresses of recipients, separated with commas</th>
 		<td>
 		<input type="text" id="upload-notifier-to-email" name="upload_notifier_general_settings[to_email]" value="<?php echo esc_attr( $options['to_email'] ) ?>" size="50" />
 		</td>
@@ -104,12 +104,18 @@ class UploadNotifier {
 		$headers = array();
 		$headers[] = "From: <{$options['from_email']}>";
 
-		return mail(
-			$options['to_email'],
-			$options['subject'],
-			"{$options['message']}<$url>",
-			implode( "\r\n", $headers )
-		);
+		$recipients = explode( ',', $options['to_email'] );
+
+		foreach ( $recipients as $recipient ) {
+			$accepted = mail(
+				trim( $recipient ),
+				$options['subject'],
+				"{$options['message']}<$url>",
+				implode( "\r\n", $headers )
+			);
+
+			// TODO: Handle $accepted
+		}
 	}
 }
 

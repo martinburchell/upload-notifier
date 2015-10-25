@@ -16,6 +16,23 @@ class UploadNotifierTest extends WP_UnitTestCase {
 		$this->check_email_was_sent();
 	}
 
+	public function test_sends_two_emails() {
+		$this->set_option(
+			'to_email',
+			'recipient1@example.com,  recipient2@example.com' );
+
+		$this->apply_upload_filters();
+
+		$message = $this->get_last_email();
+		$this->assertThat(
+			$message['to'], $this->equalTo( 'recipient2@example.com' ));
+
+		$message = $this->get_last_email();
+		$this->assertThat(
+			$message['to'], $this->equalTo( 'recipient1@example.com' ));
+
+	}
+
 	public function test_no_message_sent_for_non_upload_event() {
 		$this->apply_upload_filters( array(), 'sideload' );
 
